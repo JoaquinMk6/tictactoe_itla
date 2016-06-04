@@ -1,22 +1,33 @@
 #include "TicTacToe.h"
 #include <cstdlib>
+#include <iostream>
 using namespace std;
 
+//I create new variables: int plays = 0;and char winner;
 char board[3][3]; //Possible values are X, O and _ (for blank positions)
 char player = 'X';
+int plays = 0;
+char winner;
 
 bool isAvailable(int row, int column)
-{
-	//TODO: Implement this code so that it tells the user whether or not he can play in the selected cell
-	return true;
-}
+ {
+    if (board[row][column] != '_' )
+ 	{
+     cout << "That plays has already been done" << endl;
+     return false;
+    }
+    return true;
+ }
 
 //Give initial values to the board matrix
+
 void init()
 {
 	for(int i = 0 ; i < 3 ; i++)
 	{
-		for(int j = 0 ; j < 3 ; j++)
+        for(int j = 0 ; j < 3 ; j++)
+
+
 		{
 			board[i][j] = '_';
 		}
@@ -26,7 +37,7 @@ void init()
 void clearScreen()
 {
 	#ifdef _WIN32
-	system("cls");
+    system("cls");
 	#else
 	system("clear");
 	#endif
@@ -44,8 +55,57 @@ bool validate(int number)
 	}
 }
 
+
+// In this part I Implement this methods to verify if any player has won the match of it's being a tie.
+
 bool gameover()
 {
+    plays++;
+    if (plays > 5) {
+        if (board [0][0] == board [0][1] && board [0][1] == board [0][2] && board [0][1] != '_')
+            {
+            cout << "Player " << winner << " win." << endl;
+                return true;
+            }
+            else if (board [1][0] == board [1][1] && board [1][1] == board [1][2] && board [1][1] != '_')
+            {
+            cout << "Player " << winner << " win." << endl;
+               return true;
+            }
+            else if (board [2][0] == board [2][1] && board [2][1] == board [2][2] && board [2][1] != '_')
+            {
+            cout << "Player " << winner << " win." << endl;
+                return true;
+            }
+            else if (board [0][0] == board [1][0] && board [1][0] == board [2][0] && board [1][0])
+            {
+            cout << "Player " << winner << " win." << endl;
+                return true;
+            }
+            else if (board [0][1] == board [1][1] && board [1][1] == board [2][1] && board [1][1] != '_')
+            {
+            cout << "Player " << winner << " win." << endl;
+                return true;
+            }
+            else if (board [0][2] == board [1][2] && board [1][2] == board [2][2] && board [1][2] != '_')
+            {
+            cout << "Player " << winner << " win." << endl;
+                return true;
+            }
+            else if (board [0][0] == board [1][1] && board [1][1] == board [2][2] & board [1][1] != '_')
+            {
+            cout << "Player " << winner << "win." << endl;
+                return true;
+            }
+            else if (board [0][2] == board [1][1] && board [1][1] == board [2][0] && board [1][1] != '_')
+            {
+            cout << "Player " << winner << "win." << endl;
+                return true;
+            }
+        }
+        return false;
+    }
+
 	//TODO: Implement this method,verify if any player has won the match of it's being a tie.
 	//Return true if the game is over. Print message informing the user about what just happened.
 	if(false){ // change this with a real condition
@@ -71,6 +131,7 @@ void showBoard()
 {
 	while(!gameover())
 	{
+	    winner = player == 'X' ? 'X' : 'O';
 		clearScreen();
 		int row = 0;
 		int column = 0;
